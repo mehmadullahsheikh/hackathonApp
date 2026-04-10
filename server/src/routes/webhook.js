@@ -5,7 +5,7 @@ import { ENV } from "../lib/env.js";
 
 const router = express.Router();
 
-router.post("/clerk", express.raw({ type: "application/json" }), async (req, res) => {
+router.post("/clerk", async (req, res) => {
   const payload = req.body;
   const headers = req.headers;
 

@@ -8,6 +8,9 @@ import webhookRoutes from "./routes/webhook.js";
 const app = express();
 
 
+// Must be BEFORE express.json() — once raw reads the body, json will skip it
+app.use("/api/webhooks/clerk", express.raw({ type: "application/json" }));
+
 app.use(express.json());
 connectDB();
 
