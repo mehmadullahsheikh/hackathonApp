@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { SignUpButton } from '@clerk/clerk-react';
 import Navbar from '../components/navbar';
 
 /* ─── Animated Counter Hook ─────────────────────────────────── */
@@ -38,7 +39,7 @@ function useInView(threshold = 0.2) {
 const stats = [
   { label: 'Active Members', value: 10000, suffix: '+', icon: '👥' },
   { label: 'Sessions Completed', value: 45000, suffix: '+', icon: '✅' },
-  { label: 'Regional Languages', value: 12, suffix: '', icon: '🌐' },
+  { label: 'Regional Languages', value: 6, suffix: '', icon: '🌐' },
   { label: 'Documents Decoded', value: 32000, suffix: '+', icon: '📄' },
 ];
 
@@ -130,7 +131,7 @@ export default function HomePage() {
       {/* ══════════════════════════════════════════════════════════
           HERO SECTION
       ══════════════════════════════════════════════════════════ */}
-      <motion.section 
+      <motion.section
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
@@ -209,12 +210,12 @@ export default function HomePage() {
       {/* ══════════════════════════════════════════════════════════
           IMPACT METRICS
       ══════════════════════════════════════════════════════════ */}
-      <motion.section 
-        initial={{ opacity: 0, y: 30 }} 
-        whileInView={{ opacity: 1, y: 0 }} 
-        viewport={{ once: true }} 
-        transition={{ duration: 0.6 }} 
-        className="py-20 px-4" 
+      <motion.section
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: false, amount: 0.15 }}
+        transition={{ duration: 0.6 }}
+        className="py-20 px-4"
         ref={statsRef}
       >
         <div className="max-w-5xl mx-auto">
@@ -235,11 +236,11 @@ export default function HomePage() {
       {/* ══════════════════════════════════════════════════════════
           HOW IT WORKS
       ══════════════════════════════════════════════════════════ */}
-      <motion.section 
-        initial={{ opacity: 0, scale: 0.95 }} 
-        whileInView={{ opacity: 1, scale: 1 }} 
-        viewport={{ once: true }} 
-        transition={{ duration: 0.7 }} 
+      <motion.section
+        initial={{ opacity: 0, scale: 0.95 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: false, amount: 0.15 }}
+        transition={{ duration: 0.7 }}
         className="py-20 px-4 bg-gradient-to-br from-purple-700 to-violet-800 relative overflow-hidden"
       >
         <div className="absolute inset-0 opacity-10">
@@ -283,11 +284,11 @@ export default function HomePage() {
       {/* ══════════════════════════════════════════════════════════
           USE CASES
       ══════════════════════════════════════════════════════════ */}
-      <motion.section 
-        initial={{ opacity: 0, y: 30 }} 
-        whileInView={{ opacity: 1, y: 0 }} 
-        viewport={{ once: true }} 
-        transition={{ staggerChildren: 0.1, duration: 0.6 }} 
+      <motion.section
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: false, amount: 0.15 }}
+        transition={{ staggerChildren: 0.1, duration: 0.6 }}
         className="py-20 px-4"
       >
         <div className="max-w-6xl mx-auto">
@@ -325,11 +326,11 @@ export default function HomePage() {
       {/* ══════════════════════════════════════════════════════════
           TESTIMONIALS
       ══════════════════════════════════════════════════════════ */}
-      <motion.section 
-        initial={{ opacity: 0, x: -30 }} 
-        whileInView={{ opacity: 1, x: 0 }} 
-        viewport={{ once: true }} 
-        transition={{ duration: 0.6 }} 
+      <motion.section
+        initial={{ opacity: 0, x: -30 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: false, amount: 0.15 }}
+        transition={{ duration: 0.6 }}
         className="py-20 px-4 bg-slate-50"
       >
         <div className="max-w-6xl mx-auto">
@@ -379,11 +380,11 @@ export default function HomePage() {
       {/* ══════════════════════════════════════════════════════════
           FINAL CTA BANNER
       ══════════════════════════════════════════════════════════ */}
-      <motion.section 
-        initial={{ opacity: 0, scale: 0.9 }} 
-        whileInView={{ opacity: 1, scale: 1 }} 
-        viewport={{ once: true }} 
-        transition={{ duration: 0.5, type: "spring" }} 
+      <motion.section
+        initial={{ opacity: 0, scale: 0.9 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: false, amount: 0.15 }}
+        transition={{ duration: 0.5, type: "spring" }}
         className="py-20 px-4"
       >
         <div className="max-w-4xl mx-auto text-center rounded-3xl bg-gradient-to-br from-purple-600 via-violet-600 to-purple-700 p-12 shadow-2xl shadow-purple-200 relative overflow-hidden">
@@ -397,12 +398,11 @@ export default function HomePage() {
               Join 10,000+ citizens who've already decoded their government paperwork. Free, multilingual, and always accurate.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                to="/signup"
-                className="px-8 py-4 rounded-2xl font-bold text-purple-700 bg-white hover:bg-purple-50 hover:shadow-xl hover:scale-105 transition-all duration-200 text-base"
-              >
-                Get Started Free →
-              </Link>
+              <SignUpButton mode="modal">
+                <button className="px-8 py-4 rounded-2xl font-bold text-purple-700 bg-white hover:bg-purple-50 hover:shadow-xl hover:scale-105 transition-all duration-200 text-base">
+                  Get Started Free →
+                </button>
+              </SignUpButton>
               <Link
                 to="/explore"
                 className="px-8 py-4 rounded-2xl font-bold text-white border-2 border-white/40 hover:bg-white/10 hover:border-white/60 transition-all duration-200 text-base"

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { SignUpButton } from '@clerk/clerk-react';
 import Navbar from '../components/navbar';
 
 /* ─── Data ─────────────────────────────────────────────────── */
@@ -313,12 +314,11 @@ export default function AboutUsPage() {
               </div>
             ))}
           </div>
-          <Link
-            to="/signup"
-            className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl font-bold text-white bg-gradient-to-r from-purple-600 to-violet-600 hover:shadow-xl hover:shadow-purple-200 hover:scale-105 transition-all duration-200 text-base"
-          >
-            Join CitizenBridge Today →
-          </Link>
+          <SignUpButton mode="modal">
+            <button className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl font-bold text-white bg-gradient-to-r from-purple-600 to-violet-600 hover:shadow-xl hover:shadow-purple-200 hover:scale-105 transition-all duration-200 text-base">
+              Join CitizenBridge Today →
+            </button>
+          </SignUpButton>
         </div>
       </motion.section>
     </div>

@@ -13,11 +13,11 @@ import ConnectPage from './pages/ConnectPage';
 const App = () => {
   return (
     <BrowserRouter>
-    
+
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/explore" element={<ProtectedRoute><ExplorePage /></ProtectedRoute>} />
+        <Route path="/explore" element={<ExplorePage />} />
         <Route path="/facilities" element={<FacilitiesPage />} />
         <Route path="/connect" element={<ConnectPage />} />
         <Route path="/about" element={<AboutUsPage />} />
