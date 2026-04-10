@@ -104,7 +104,7 @@ function StatCard({ icon, label, value, suffix, animate }) {
   const count = useCounter(value, 2200, animate);
   return (
     <div className="flex flex-col items-center p-6 rounded-2xl bg-white shadow-lg shadow-purple-100 border border-purple-100 hover:shadow-xl hover:shadow-purple-200 hover:-translate-y-1 transition-all duration-300">
-      <span className="text-4xl mb-2">{icon}</span>
+      <span className="text-4xl mb-2 notranslate leading-none">{icon}</span>
       <span className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-violet-500 notranslate">
         {count.toLocaleString()}{suffix}
       </span>
@@ -268,7 +268,7 @@ export default function HomePage() {
                 {i < steps.length - 1 && (
                   <div className="hidden md:block absolute top-10 -right-4 w-8 border-t-2 border-dashed border-white/30 z-10" />
                 )}
-                <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${s.color} flex items-center justify-center text-2xl mb-4 shadow-lg`}>
+                <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${s.color} flex items-center justify-center text-2xl mb-4 shadow-lg notranslate leading-none`}>
                   {s.icon}
                 </div>
                 <span className="text-5xl font-black text-white/10 absolute top-4 right-6 select-none">{s.step}</span>
@@ -308,7 +308,7 @@ export default function HomePage() {
                 key={uc.title}
                 className="group p-6 rounded-2xl bg-white border border-purple-100 shadow-sm hover:shadow-lg hover:shadow-purple-100 hover:border-purple-200 hover:-translate-y-1 transition-all duration-300 cursor-pointer"
               >
-                <div className="w-12 h-12 rounded-xl bg-purple-50 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
+                <div className="w-12 h-12 rounded-xl bg-purple-50 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform notranslate leading-none">
                   {uc.icon}
                 </div>
                 <h3 className="text-lg font-bold text-slate-800 mb-2">{uc.title}</h3>
@@ -456,7 +456,7 @@ export default function HomePage() {
             {/* Languages */}
             <div>
               <h4 className="text-white font-semibold mb-3 text-sm">Languages</h4>
-              <div className="flex flex-wrap gap-2 text-xs">
+              <div className="flex flex-wrap gap-2 text-xs notranslate">
                 {['English', 'हिंदी', 'বাংলা', 'தமிழ்', 'తెలుగు', 'ಕನ್ನಡ', 'मराठी', 'ਪੰਜਾਬੀ'].map((l) => (
                   <span key={l} className="px-2 py-1 rounded bg-slate-800 hover:bg-purple-900 hover:text-purple-300 cursor-pointer transition">{l}</span>
                 ))}

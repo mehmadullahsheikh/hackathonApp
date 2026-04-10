@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { SignInButton, SignUpButton, UserButton, useUser } from "@clerk/clerk-react";
 
 const languages = [
   { code: 'en', label: 'English' },
@@ -17,11 +18,14 @@ const navLinks = [
 ];
 
 export default function Navbar() {
+
+  const { isSignedIn } = useUser();
+
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [langIndex, setLangIndex] = useState(0);
   const [langMenuOpen, setLangMenuOpen] = useState(false);
-  const dropdownRef = useRef(null);
+  const dropdownRef = React.useRef(null);
   const location = useLocation();
 
   useEffect(() => {
@@ -34,7 +38,6 @@ export default function Navbar() {
       const idx = languages.findIndex(l => l.code === match[1]);
       if (idx !== -1) setLangIndex(idx);
     }
-
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setLangMenuOpen(false);
@@ -82,7 +85,7 @@ export default function Navbar() {
             </span>
           </Link>
 
-          {/* CENTER — Nav Links (desktop) */}
+          {/* CENTER — Nav Links + Language Toggle (desktop) */}
           <div className="hidden md:flex items-center gap-1">
             {navLinks.map((link) => (
               <Link
@@ -97,57 +100,71 @@ export default function Navbar() {
                 {link.label}
               </Link>
             ))}
+
           </div>
 
-          {/* RIGHT — Auth Buttons & Language (desktop) */}
-          <div className="hidden md:flex items-center gap-4">
-            <Link
-              to="/login"
-              className="px-4 py-2 text-sm font-medium text-purple-600 hover:text-purple-700 hover:bg-purple-50 rounded-lg transition-all duration-200"
-            >
-              Login
-            </Link>
-            <Link
-              to="/signup"
-              className="px-5 py-2 text-sm font-semibold text-white bg-gradient-to-r from-purple-600 to-violet-600 rounded-xl hover:shadow-lg hover:shadow-purple-200 hover:scale-105 transition-all duration-200"
-            >
-              Register
-            </Link>
+          {/* RIGHT — Auth Buttons (desktop) */}
+<div className="hidden md:flex items-center gap-3">
+  {!isSignedIn ? (
+    <>
+      <SignInButton mode="modal">
+        <button className="px-4 py-2 text-sm font-medium text-purple-600 hover:text-purple-700 hover:bg-purple-50 rounded-lg transition-all duration-200">
+          Login
+        </button>
+      </SignInButton>
 
-            {/* Language Dropdown */}
-            <div className="relative notranslate" ref={dropdownRef}>
-              <button
-                onClick={() => setLangMenuOpen(!langMenuOpen)}
-                title="Switch Language"
-                className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-semibold border border-purple-200 text-purple-700 bg-purple-50 hover:bg-purple-100 hover:border-purple-300 transition-all duration-200"
-              >
-                <svg className="w-4 h-4 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
-                </svg>
-                {languages[langIndex]?.label}
-                <svg className={`w-3 h-3 text-purple-500 transition-transform ${langMenuOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-              
-              {/* Dropdown Menu */}
-              {langMenuOpen && (
-                <div className="absolute right-0 top-full mt-2 w-36 bg-white border border-purple-100 rounded-xl shadow-xl overflow-hidden flex flex-col z-50">
-                  {languages.map((lang, idx) => (
-                    <button
-                      key={lang.code}
-                      onClick={() => selectLanguage(idx)}
-                      className={`text-left px-4 py-2.5 text-sm font-medium transition-colors ${
-                        langIndex === idx ? 'bg-purple-100 text-purple-700' : 'text-slate-600 hover:bg-purple-50 hover:text-purple-600'
-                      }`}
-                    >
-                      {lang.label}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-          </div>
+      <SignUpButton mode="modal">
+        <button className="px-5 py-2 text-sm font-semibold text-white bg-gradient-to-r from-purple-600 to-violet-600 rounded-xl hover:shadow-lg hover:shadow-purple-200 hover:scale-105 transition-all duration-200">
+          Register
+        </button>
+      </SignUpButton>
+    </>
+  ) : (
+    <>
+      <Link
+        to="/dashboard"
+        className="px-4 py-2 text-sm font-medium text-purple-600 hover:bg-purple-50 rounded-lg"
+      >
+        Dashboard
+      </Link>
+
+      <UserButton afterSignOutUrl="/" />
+    </>
+  )}
+  {/* Language Dropdown */}
+  <div className="relative notranslate ml-2 border-l border-slate-200 pl-4 py-1" ref={dropdownRef}>
+    <button
+      onClick={() => setLangMenuOpen(!langMenuOpen)}
+      title="Switch Language"
+      className="px-3 py-2 rounded-lg text-sm font-semibold border border-purple-200 text-purple-700 bg-purple-50 hover:bg-purple-100 hover:border-purple-300 transition-all duration-200 flex items-center gap-2"
+    >
+      <svg className="w-4 h-4 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
+      </svg>
+      {languages[langIndex]?.label}
+      <svg className={`w-3.5 h-3.5 text-purple-500 transition-transform ${langMenuOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+      </svg>
+    </button>
+    
+    {/* Dropdown Menu */}
+    {langMenuOpen && (
+      <div className="absolute right-0 top-full mt-3 w-40 bg-white border border-purple-100 rounded-xl shadow-xl overflow-hidden flex flex-col z-50">
+        {languages.map((lang, idx) => (
+          <button
+            key={lang.code}
+            onClick={() => selectLanguage(idx)}
+            className={`text-left px-5 py-3 text-sm font-medium transition-colors ${
+              langIndex === idx ? 'bg-purple-100 text-purple-700' : 'text-slate-600 hover:bg-purple-50 hover:text-purple-600'
+            }`}
+          >
+            {lang.label}
+          </button>
+        ))}
+      </div>
+    )}
+  </div>
+</div>
 
           {/* MOBILE — Hamburger */}
           <button
@@ -165,7 +182,7 @@ export default function Navbar() {
       </div>
 
       {/* MOBILE — Dropdown Menu */}
-      <div className={`md:hidden overflow-hidden transition-all duration-300 ${menuOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'}`}>
+      <div className={`md:hidden overflow-hidden transition-all duration-300 ${menuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
         <div className="bg-white/95 backdrop-blur-md border-t border-purple-100 px-4 py-4 space-y-2">
           {navLinks.map((link) => (
             <Link
@@ -177,7 +194,6 @@ export default function Navbar() {
               {link.label}
             </Link>
           ))}
-          
           <div className="pt-2 border-t border-purple-100 notranslate">
             <p className="px-4 py-2 text-xs font-semibold text-slate-400 uppercase tracking-wider">Select Language</p>
             <div className="grid grid-cols-2 gap-2 mt-1">
@@ -196,18 +212,37 @@ export default function Navbar() {
               ))}
             </div>
           </div>
+<div className="pt-2 border-t border-purple-100 flex gap-3">
+  {!isSignedIn ? (
+    <>
+      <SignInButton mode="modal">
+        <button className="flex-1 text-center px-4 py-2.5 rounded-lg text-sm font-medium border border-purple-200 text-purple-600 hover:bg-purple-50 transition">
+          Login
+        </button>
+      </SignInButton>
 
-          <div className="pt-4 mt-2 border-t border-purple-100 flex gap-3">
-            <Link to="/login" onClick={() => setMenuOpen(false)} className="flex-1 text-center px-4 py-2.5 rounded-lg text-sm font-medium border border-purple-200 text-purple-600 hover:bg-purple-50 transition">
-              Login
-            </Link>
-            <Link to="/signup" onClick={() => setMenuOpen(false)} className="flex-1 text-center px-4 py-2.5 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-purple-600 to-violet-600 hover:shadow-md transition">
-              Register
-            </Link>
-          </div>
+      <SignUpButton mode="modal">
+        <button className="flex-1 text-center px-4 py-2.5 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-purple-600 to-violet-600 hover:shadow-md transition">
+          Register
+        </button>
+      </SignUpButton>
+    </>
+  ) : (
+    <>
+      <Link
+        to="/dashboard"
+        onClick={() => setMenuOpen(false)}
+        className="flex-1 text-center px-4 py-2.5 rounded-lg text-sm font-medium text-purple-600 hover:bg-purple-50 transition"
+      >
+        Dashboard
+      </Link>
+
+      <UserButton afterSignOutUrl="/" />
+    </>
+  )}
+</div>
         </div>
       </div>
     </nav>
   );
 }
-

@@ -129,7 +129,7 @@ const pricingPlans = [
 function FeatureCard({ f }) {
   return (
     <div className={`p-6 rounded-2xl border ${f.bg} ${f.border} hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group`}>
-      <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${f.color} flex items-center justify-center text-2xl mb-4 shadow-md group-hover:scale-110 transition-transform`}>
+      <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${f.color} flex items-center justify-center text-2xl mb-4 shadow-md group-hover:scale-110 transition-transform notranslate leading-none`}>
         {f.icon}
       </div>
       <h3 className="text-lg font-bold text-slate-800 mb-2">{f.title}</h3>
@@ -255,8 +255,8 @@ export default function FacilitiesPage() {
                   </div>
                 )}
                 <h3 className={`font-extrabold text-lg mb-1 ${plan.highlight ? 'text-white' : 'text-slate-800'}`}>{plan.name}</h3>
-                <div className="flex items-end gap-1 mb-1 notranslate">
-                  <span className={`text-4xl font-black ${plan.highlight ? 'text-white' : 'text-slate-800'}`}>{plan.price}</span>
+                <div className="flex items-end gap-1 mb-1">
+                  <span className={`text-4xl font-black ${plan.highlight ? 'text-white' : 'text-slate-800'} notranslate`}>{plan.price}</span>
                   <span className={`text-sm mb-1 ${plan.highlight ? 'text-purple-200' : 'text-slate-400'}`}>/{plan.period}</span>
                 </div>
                 <p className={`text-sm mb-6 ${plan.highlight ? 'text-purple-200' : 'text-slate-500'}`}>{plan.desc}</p>

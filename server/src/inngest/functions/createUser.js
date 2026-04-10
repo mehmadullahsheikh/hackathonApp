@@ -2,8 +2,7 @@ import User from "../../models/user.model.js";
 import { inngest } from "../client.js";
 
 export const createUser = inngest.createFunction(
-  { id: "create-user-from-clerk", event: "clerk/user.created" },  // ← merged here
-
+  { id: "create-user-from-clerk", triggers: [{ event: "clerk/user.created" }] },
   async ({ event }) => {
     const { id, email_addresses, first_name, last_name, image_url } = event.data;
 

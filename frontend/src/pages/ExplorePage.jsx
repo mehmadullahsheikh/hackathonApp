@@ -141,8 +141,8 @@ function ProcedureCard({ proc, onSelect }) {
       className="group cursor-pointer p-5 rounded-2xl bg-white border border-purple-100 shadow-sm hover:shadow-xl hover:shadow-purple-100 hover:border-purple-300 hover:-translate-y-1 transition-all duration-300"
     >
       <div className="flex items-start justify-between mb-3">
-        <div className="w-12 h-12 rounded-xl bg-purple-50 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
-          <span className="notranslate leading-none">{proc.icon}</span>
+        <div className="w-12 h-12 rounded-xl bg-purple-50 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform notranslate leading-none">
+          {proc.icon}
         </div>
         <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${difficultyColor[proc.difficulty]}`}>
           {proc.difficulty}
@@ -151,8 +151,8 @@ function ProcedureCard({ proc, onSelect }) {
       <h3 className="font-bold text-slate-800 text-base mb-1.5 group-hover:text-purple-700 transition-colors">{proc.title}</h3>
       <p className="text-slate-500 text-sm leading-relaxed line-clamp-2 mb-4">{proc.desc}</p>
       <div className="flex items-center gap-3 text-xs text-slate-400 border-t border-slate-100 pt-3">
-        <span className="flex items-center gap-1"><span className="notranslate">📌</span> {proc.steps} steps</span>
-        <span className="flex items-center gap-1"><span className="notranslate">⏱</span> {proc.time}</span>
+        <span className="flex items-center gap-1"><span className="notranslate leading-none">📌</span> {proc.steps} steps</span>
+        <span className="flex items-center gap-1"><span className="notranslate leading-none">⏱</span> {proc.time}</span>
       </div>
     </div>
   );
@@ -169,14 +169,14 @@ function ProcedureModal({ proc, onClose }) {
       >
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-xl bg-purple-50 flex items-center justify-center text-2xl"><span className="notranslate leading-none">{proc.icon}</span></div>
+            <div className="w-12 h-12 rounded-xl bg-purple-50 flex items-center justify-center text-2xl notranslate leading-none">{proc.icon}</div>
             <div>
               <h2 className="font-extrabold text-slate-800 text-xl">{proc.title}</h2>
               <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${difficultyColor[proc.difficulty]}`}>{proc.difficulty}</span>
             </div>
           </div>
-          <button onClick={onClose} aria-label="Close" className="flex-shrink-0 w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 hover:bg-purple-100 hover:text-purple-600 transition">
-            <svg className="w-4 h-4 notranslate" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <button onClick={onClose} className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 hover:bg-purple-100 hover:text-purple-600 transition notranslate leading-none" aria-label="Close modal">
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
@@ -193,7 +193,7 @@ function ProcedureModal({ proc, onClose }) {
           </div>
         </div>
         <div className="mb-5">
-          <h4 className="font-bold text-slate-700 text-sm mb-2"><span className="notranslate">📂</span> Required Documents</h4>
+          <h4 className="font-bold text-slate-700 text-sm mb-2 flex items-center gap-2"><span className="notranslate leading-none">📂</span> Required Documents</h4>
           <ul className="space-y-1.5">
             {proc.docs.map((d) => (
               <li key={d} className="flex items-center gap-2 text-sm text-slate-600">
@@ -204,7 +204,7 @@ function ProcedureModal({ proc, onClose }) {
           </ul>
         </div>
         <div className="mb-5">
-          <h4 className="font-bold text-slate-700 text-sm mb-2"><span className="notranslate">🏷️</span> Tags</h4>
+          <h4 className="font-bold text-slate-700 text-sm mb-2 flex items-center gap-2"><span className="notranslate leading-none">🏷️</span> Tags</h4>
           <div className="flex flex-wrap gap-2">
             {proc.tags.map((t) => (
               <span key={t} className="px-3 py-1 rounded-full bg-purple-50 text-purple-600 text-xs font-medium border border-purple-100">{t}</span>
@@ -300,8 +300,7 @@ export default function ExplorePage() {
                   : 'bg-slate-100 text-slate-600 hover:bg-purple-50 hover:text-purple-600'
               }`}
             >
-              <span className="notranslate leading-none">{cat.emoji}</span>
-              <span>{cat.label}</span>
+              <span className="notranslate leading-none">{cat.emoji}</span> <span>{cat.label}</span>
             </button>
           ))}
         </div>
@@ -331,7 +330,7 @@ export default function ExplorePage() {
             </div>
           ) : (
             <div className="text-center py-20">
-              <div className="text-6xl mb-4 notranslate">🔍</div>
+              <div className="text-6xl mb-4 notranslate leading-none">🔍</div>
               <h3 className="text-xl font-bold text-slate-700 mb-2">No procedures found</h3>
               <p className="text-slate-400">Try a different keyword or category</p>
             </div>
