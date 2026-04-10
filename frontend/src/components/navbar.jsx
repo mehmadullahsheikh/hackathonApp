@@ -14,6 +14,7 @@ const languages = [
 const navLinks = [
   { label: 'Explore', href: '/explore' },
   { label: 'Facilities', href: '/facilities' },
+  { label: 'Connect', href: '/connect' },
   { label: 'About Us', href: '/about' },
 ];
 

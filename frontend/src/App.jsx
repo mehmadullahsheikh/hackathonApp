@@ -7,6 +7,8 @@ import ExplorePage from './pages/ExplorePage';
 import FacilitiesPage from './pages/FacilitiesPage';
 import AboutUsPage from './pages/AboutUsPage';
 import ProtectedRoute from './components/ProtectedRoute';
+import ChatPage from './pages/ChatPage';
+import ConnectPage from './pages/ConnectPage';
 
 const App = () => {
   return (
@@ -17,7 +19,9 @@ const App = () => {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/explore" element={<ProtectedRoute><ExplorePage /></ProtectedRoute>} />
         <Route path="/facilities" element={<FacilitiesPage />} />
+        <Route path="/connect" element={<ConnectPage />} />
         <Route path="/about" element={<AboutUsPage />} />
+        <Route path="/chat/:documentId" element={<ProtectedRoute><ChatPage /></ProtectedRoute>} />
       </Routes>
     </BrowserRouter>
   )
