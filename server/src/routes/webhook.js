@@ -1,0 +1,32 @@
+import express from "express";
+import { Webhook } from "svix";
+import { inngest } from "../inngest/client.js";
+
+const router = express.Router();
+
+router.post("/clerk", async (req, res) => {
+  const payload = req.body;
+  const headers = req.headers;
+
+  const wh = new Webhook(process.env.CLERK_WEBHOOK_SECRET);
+
+  let evt;
+
+  try {
+    evt = wh.verify(payload, headers);
+  } catch (err) {
+    return res.status(400).send("Invalid webhook");
+  }
+
+  // Only handle user.created
+  if (evt.type === "user.created") {
+    await inngest.send({
+      name: "clerk/user.created",
+      data: evt.data,
+    });
+  }
+
+  res.status(200).send("Webhook received");
+});
+
+export default router;
